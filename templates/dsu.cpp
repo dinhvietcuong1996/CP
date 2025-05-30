@@ -21,34 +21,16 @@ using ld = long double;
 
 ll MOD = 998244353;
 
-#include <iostream>
-#include <limits>         // numeric_limits<type>::max(), numeric_limits<type>::min()
-#include <iomanip>        // setprecision
-#include <algorithm>      // sort, max, min, reverse, swap
-#include <cmath>          // pow, floor, ceil, round, abs
-#include <vector>
-#include <string>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <deque>
-#include <numeric>      // accumulate
-#include <queue>      // queue, priority_queue
-#include <functional> // for function
-#define endl '\n'
-using namespace std;
-using ll = long long;
-using ld = long double;
-
 class DSU {
 public:
     vector<ll> parents, sizes;
+    ll num_components;
 
     DSU(ll n){
         parents.assign(n, -1);
         sizes.assign(n, 1);
         for (ll i = 0; i < n; i++) parents[i] = i;
+        num_components = n;
     }
 
     ll find(ll x){
@@ -64,11 +46,20 @@ public:
         if (sizes[x_root] < sizes[y_root]) swap(x_root, y_root);
         parents[y_root] = x_root;
         sizes[x_root] += sizes[y_root];
+        num_components--;
         return true;
     }
 
     bool is_connected(ll x, ll y){
         return find(x) == find(y);
+    }
+
+    ll get_component_size(ll x){
+        return sizes[find(x)];
+    }
+
+    ll count_components() {
+        return num_components;
     }
 };
 
