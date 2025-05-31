@@ -69,6 +69,62 @@ ll fast_exp(ll base, ll exp) {
     return result;
 }
 
+// Greatest Common Divisor (GCD)
+ll gcd(ll a, ll b) {
+    while (b) {
+        a %= b;
+        swap(a, b);
+    }
+    return a;
+}
+
+// Least Common Multiple (LCM)
+ll lcm(ll a, ll b) {
+    if (a == 0 || b == 0) return 0;
+    return abs(a * b) / gcd(a, b);
+}
+
+// Sieve of Eratosthenes
+// Generates primes up to n
+vector<ll> sieve(ll n) {
+    vector<bool> is_prime(n + 1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (ll p = 2; p * p <= n; p++)
+        if (is_prime[p])
+            for (ll i = p * p; i <= n; i += p)
+                is_prime[i] = false;
+    vector<ll> primes;
+    for (ll p = 2; p <= n; p++)
+        if (is_prime[p])
+            primes.push_back(p);
+    return primes;
+}
+
+// Primality Test (trial division)
+bool is_prime(ll n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    for (ll i = 5; i * i <= n; i = i + 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    return true;
+}
+
+// Prime Factorization (using trial division)
+map<ll, ll> prime_factorization(ll n) {
+    map<ll, ll> factors;
+    for (ll i = 2; i * i <= n; i++) {
+        while (n % i == 0) {
+            factors[i]++;
+            n /= i;
+        }
+    }
+    if (n > 1)
+        factors[n]++;
+    return factors;
+}
+
 int main(){
     return 0;
 }
