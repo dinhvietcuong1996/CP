@@ -19,6 +19,8 @@ using namespace std;
 using ll = long long;
 using ld = long double;
 
+const ll INF = numeric_limits<ll>::max();
+const ll NEG_INF = numeric_limits<ll>::min();
 ll MOD = 998244353;
 
 void solve(){
