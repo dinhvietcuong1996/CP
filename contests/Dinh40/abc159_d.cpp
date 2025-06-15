@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <limits>         // numeric_limits<type>::max(), numeric_limits<type>::min()
+#include <string>
+#include <algorithm>      // sort, max, min, reverse, swap
+#include <unordered_set>
+#include <unordered_map>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <set>
+#include <map>
+#include <numeric>        // accumulate
+#include <cmath>      // pow, floor, ceil, round, abs
+#include <iomanip>    // setprecision
+#include <functional> // for function
+#define endl '\n'
+using namespace std;
+using ll = long long;
+using ld = long double;
+
+ll MOD = 998244353;
+
+void solve(){
+    ll N;
+    cin >> N;
+    vector<ll> list_A(N);
+    for (ll i = 0; i < N; i++) cin >> list_A[i];
+    map<ll, ll> counter;
+    for (ll &a : list_A) counter[a]++;
+    ll total_ans = 0;
+    for (auto &c : counter)
+        total_ans += c.second * (c.second - 1) / 2;
+    for (ll &a : list_A){
+        ll cur_ans = total_ans;
+        cur_ans -= counter[a] * (counter[a] - 1) / 2;
+        cur_ans += (counter[a] - 1) * (counter[a] - 2) / 2;
+        cout << cur_ans << endl;
+    }
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    ll T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+}
